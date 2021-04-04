@@ -1,7 +1,10 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.utils import shuffle
+from sklearn.metrics import precision_score, recall_score
 from sklearn.neural_network import MLPClassifier
+import utils
+import json
 
 import argparse
 import os
@@ -36,7 +39,8 @@ def encode_numerical_feature(feature, name, dataset):
     return encoded_feature
 
 def predict_nn(train_df, test_df, feature_combinations):
-    for features in feature_combinations:
+    logs = []
+    for name, features in feature_combinations:
         print(features)
         train_ds = dataframe_to_dataset(train_df, features)
         test_ds = dataframe_to_dataset(test_df, features)
@@ -58,21 +62,41 @@ def predict_nn(train_df, test_df, feature_combinations):
 
         model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy', keras.metrics.Precision(name='precision'), keras.metrics.Recall(name='recall')])
         history = model.fit(train_ds, batch_size=32, epochs=5, validation_data=test_ds)
+
+        logs.append({
+            'name': name,
+            'features': features,
+            'history': history.history
+        })
     print()
+    return logs
 
 
 def predict_logistic_regression(train_df, test_df, feature_combinations):
     clf = LogisticRegression(random_state=0, multi_class='ovr')
 
-    for features in feature_combinations:
+    logs = []
+    for name, features in feature_combinations:
         print(features)
         clf.fit(train_df[features], train_df['label'])
-        print(clf.score(test_df[features], test_df['label']))
-    print('')
+        score = clf.score(test_df[features], test_df['label'])
+        precision = precision_score(test_df['label'], clf.predict(test_df[features]))
+        recall = recall_score(test_df['label'], clf.predict(test_df[features]))
+        print(score)
+        logs.append({
+            'name': name,
+            'features': features,
+            'score': score,
+            'precision': precision,
+            'recall': recall
+        })
+    print()
+    return logs
 
 def main(args):
     print('#############################################################################################')
     print(args.train_filepath)
+    identifier = args.train_filepath.split('_')[2].split('.')[0]
     train_df = pd.read_csv(args.train_filepath, encoding='utf-8')
     train_df.fillna(0, inplace=True)
     train_df = shuffle(train_df, random_state=0)
@@ -82,26 +106,32 @@ def main(args):
 
 
     feature_combinations = [
-        ['adamic_adar', 'pyramid_match'],
-        ['adamic_adar_normalized', 'pyramid_match_normalized'],
-        ['adamic_adar_normalized'],
+        ('AA_PM', ['adamic_adar', 'pyramid_match']),
+        ('AA_WPM', ['adamic_adar', 'weisfeiler_pyramid_match']),
+        ('AA_P', ['adamic_adar', 'propagation']),
 
-        ['adamic_adar_normalized', 'jaccard_similarity'],
-        ['adamic_adar', 'jaccard_similarity'],
-        ['jaccard_similarity'],
+        ('PM', ['pyramid_match']),
+        ('WPM', ['weisfeiler_pyramid_match']),
+        ('P', ['propagation']),
 
-        ['propagation_normalized'],
-        ['propagation', 'adamic_adar_normalized'],
-        ['propagation', 'adamic_adar'],
-        ['propagation_normalized', 'adamic_adar_normalized'],
+        ('J', ['jaccard_similarity']),
+        ('AA_J', ['adamic_adar_normalized', 'jaccard_similarity']),
+        ('AA', ['adamic_adar_normalized']),
 
-        ['adamic_adar', 'weisfeiler_pyramid_match'],
-        ['adamic_adar', 'weisfeiler_pyramid_match_normalized'],
-        ['adamic_adar_normalized', 'weisfeiler_pyramid_match_normalized']
-
+        ('ALL', ['adamic_adar', 'common_neighbors', 'preferential_attachment', 'total_neighbors', 'jaccard_similarity', 'pyramid_match', 'propagation', 'weisfeiler_pyramid_match'])
     ]
-    predict_logistic_regression(train_df, test_df, feature_combinations)
-    predict_nn(train_df, test_df, feature_combinations)
+    logs_logit = predict_logistic_regression(train_df, test_df, feature_combinations)
+    logs_nn = predict_nn(train_df, test_df, feature_combinations)
+    evaluation_results = {
+        'id': identifier,
+        'train_file': args.train_filepath,
+        'test_file': args.test_filepath,
+        'logit': logs_logit,
+        'nn': logs_nn
+    }
+    with open('results/%s.json' % (identifier), 'w', newline='') as f:
+        json.dump(evaluation_results, f, indent=2)
+
 
 
 if __name__ == '__main__':
