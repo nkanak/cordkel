@@ -1,0 +1,10 @@
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 50 --number-of-train-negatives 50 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 100 --number-of-train-negatives 100 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 50 --number-of-train-negatives 50 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 100 --number-of-train-negatives 100 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 50 --number-of-train-negatives 50 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 100 --number-of-train-negatives 100 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 50 --number-of-train-negatives 50 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 100 --number-of-train-negatives 100 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 50 --number-of-train-negatives 50 --number-of-test-positives 50 --number-of-test-negatives 50
+python generate_dataset.py --output-dir data/datasets2 --number-of-train-positives 100 --number-of-train-negatives 100 --number-of-test-positives 50 --number-of-test-negatives 50

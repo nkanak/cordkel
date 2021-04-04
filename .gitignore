@@ -1,0 +1,5 @@
+env/
+__pycache__/
+.idea
+data/CORD-19-research-challenge
+data/CORD-19-research-challenge.zip
