@@ -1,9 +1,8 @@
 # Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations
-This repository hosts code for the paper: Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations
+This repository hosts code for the paper: Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations.
 
 ## Datasets
 Available [here](https://github.com/nkanak/cordkel/tree/main/data/datasets)
-# CORD19 Knowledge Graph Representation + Graph-of-docs
 
 ## Test Results
 Check **predict.py** file.
