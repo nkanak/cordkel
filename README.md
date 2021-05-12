@@ -34,6 +34,3 @@ Once it's done, the database is initialized and ready for use.
 
 ## Running the app
 You could use the `Neo4j Browser` to run your queries.
-
-## Citation
-You can find the bibtex in [this link](), should you want to cite this paper.
