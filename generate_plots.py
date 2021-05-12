@@ -30,7 +30,7 @@ ax_val_acc.plot([1, 2, 3, 4, 5], numpy.mean(aa_j_val_accuracies, axis=0), label=
 
 ax_losses.set_xticks([1, 2, 3, 4, 5])
 ax_losses.set_xlabel('epoch')
-ax_losses.set_ylabel('loss')
+ax_losses.set_ylabel('average cross-entropy')
 ax_losses.plot([1, 2, 3, 4, 5], numpy.mean(aa_pm_val_losses, axis=0), label='Val AA_PM', marker='.')
 ax_losses.plot([1, 2, 3, 4, 5], numpy.mean(aa_j_val_losses, axis=0), label='Val AA_J', marker='*')
 ax_losses.plot([1, 2, 3, 4, 5], numpy.mean(aa_pm_losses, axis=0), label='Train AA_PM', marker='s')
