@@ -1,36 +1,27 @@
 # Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations
 This repository hosts code for the paper: Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations.
 
+## Installation
+**Prequisites:**  
+* Python 3.6
+* Neo4j (version 4.1.8 or greater).  
+
+### Setup
+```bash
+git clone https://github.com/nkanak/cordkel
+cd cordkel
+pip install -r requirements.txt
+```  
 ## Datasets
 Available [here](https://github.com/nkanak/cordkel/tree/main/data/datasets)
 
-## Test Results
-Check **predict.py** file.
+## Experiments
+For our experiments we have already generated the datasets found in the link above,
+so you only need to run the `predict_all.py` script.
 
-## Installation
-**Prequisites:**  
-* Python 3  
-* Neo4j (version 3.5.14 or greater).  
-
-
-### Set up
-```bash
-git clone https://github.com/NC0DER/CORD19_GraphOfDocs
-cd GraphOfDocs
-pip install -r requirements.txt
-```  
-
-## Database Setup
-Create a new database from the `Neo4j` desktop app using 3.5.14 as the min. version.  
-Update your memory settings to match the following values,  
-and install the following extra plugins as depicted in the image.
-![image2](https://github.com/NC0DER/CORD19_GraphOfDocs/blob/master/CORD19_GraphOfDocs/images/settings.jpg)
-*Hint: if you use a dedicated server that only runs `Neo4j`, you could increase these values, 
-accordingly as specified in the comments of these parameters.*
-
-Run the `CORD19_GraphOfDocs.py` script which will create thousands of nodes, 
-and millions of relationships in the database.  
-Once it's done, the database is initialized and ready for use. 
-
-## Running the app
-You could use the `Neo4j Browser` to run your queries.
+## Data Generation
+To generate the data for our experiements, we firstly create the database from the Neo4j desktop app using 4.1.8 as the min. version.  
+Then we set the `dbms.memory.heap.max_size = 4G` in the database settings and we install the Graph Data Science plugin (version 1.4.1).
+We run the `CORD19_GraphOfDocs.py` script which creates thousands of nodes, and millions of relationships in the database.  
+Once it is done, the database is initialized and ready for use. We generate the base datasets, by running `generate_datasets.py`.
+Finally, we produce all similarity features for each generated `.csv` by running each `.py` script postfixed with `_all`.  
