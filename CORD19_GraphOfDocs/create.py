@@ -145,13 +145,6 @@ def create_similarity_graph(database):
             cutoff = 0.23, top_k = 1
         )
 
-    with GraphAlgos(database, 'Paper', 'includes', 'Word') as graph:
-        graph.nodeSimilarity(
-            write_property = 'score', 
-            write_relationship = 'is_similar', 
-            cutoff = 0.23, top_k = 1
-        )
-
     # Find all similar document communities.
     with GraphAlgos(database, 'Paper', 'is_similar', 'Paper') as graph:
         graph.louvain(write_property = 'community')
