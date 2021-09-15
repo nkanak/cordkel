@@ -1,5 +1,5 @@
 # Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations
-This repository hosts code for the paper: Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations.
+This repository hosts code for the paper: [Shall I work with them? A ‘knowledge graph’-based approach for predicting future research collaborations](https://www.mdpi.com/1099-4300/23/6/664)
 
 ## Installation
 **Prequisites:**  
@@ -25,3 +25,9 @@ Then we set the `dbms.memory.heap.max_size = 4G` in the database settings and we
 We run the `CORD19_GraphOfDocs.py` script which creates thousands of nodes, and millions of relationships in the database.  
 Once it is done, the database is initialized and ready for use. We generate the base datasets, by running `generate_datasets.py`.
 Finally, we produce all similarity features for each generated `.csv` by running each `.py` script postfixed with `_all`.  
+
+## Contributors
+* Nikos Kanakaris (nkanakaris@upnet.gr)
+* Nikolaos Giarelis (giarelis@ceid.upatras.gr)
+* Ilias Siachos (ilias.siachos@upnet.gr)
+* Nikos Karacapilidis (karacap@upatras.gr)
